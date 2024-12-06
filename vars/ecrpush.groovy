@@ -3,9 +3,10 @@ def call(Map config) {
     def dockerImageName = config.DOCKER_IMAGE_NAME ?: error("No image Provided")
     
    
-    echo "SECRET_TOKEN: ${SECRET_TOKEN}"
-    echo "dockerImageName: ${dockerImageName}"
-
+   sh """ 
+          echo "SECRET_TOKEN: ${SECRET_TOKEN}"
+          echo "dockerImageName: ${dockerImageName}"
+    """
     withCredentials([string(credentialsId: "${SECRET_TOKEN}", variable: "setup")]) {
         def AWS_CREDENTIALS = sh(
             script: """
